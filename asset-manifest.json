@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/swu-card-maker/static/css/main.8c8b27cf.chunk.css",
+    "main.js": "/swu-card-maker/static/js/main.b69c7c94.chunk.js",
+    "main.js.map": "/swu-card-maker/static/js/main.b69c7c94.chunk.js.map",
+    "runtime-main.js": "/swu-card-maker/static/js/runtime-main.81bdf660.js",
+    "runtime-main.js.map": "/swu-card-maker/static/js/runtime-main.81bdf660.js.map",
+    "static/js/2.a369aa50.chunk.js": "/swu-card-maker/static/js/2.a369aa50.chunk.js",
+    "static/js/2.a369aa50.chunk.js.map": "/swu-card-maker/static/js/2.a369aa50.chunk.js.map",
+    "static/js/3.68484b95.chunk.js": "/swu-card-maker/static/js/3.68484b95.chunk.js",
+    "static/js/3.68484b95.chunk.js.map": "/swu-card-maker/static/js/3.68484b95.chunk.js.map",
+    "index.html": "/swu-card-maker/index.html",
+    "static/css/main.8c8b27cf.chunk.css.map": "/swu-card-maker/static/css/main.8c8b27cf.chunk.css.map",
+    "static/js/2.a369aa50.chunk.js.LICENSE.txt": "/swu-card-maker/static/js/2.a369aa50.chunk.js.LICENSE.txt",
+    "static/media/logo.6ce24c58.svg": "/swu-card-maker/static/media/logo.6ce24c58.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.81bdf660.js",
+    "static/js/2.a369aa50.chunk.js",
+    "static/css/main.8c8b27cf.chunk.css",
+    "static/js/main.b69c7c94.chunk.js"
+  ]
+}
