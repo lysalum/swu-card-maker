@@ -1,3 +1,14 @@
+# To run
+`yarn start`
+
+### To deploy
+
+`npm run deploy`
+or
+`npm run deploy -- -m "Deploy message"`
+
+Source: https://github.com/gitname/react-gh-pages
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
