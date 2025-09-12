@@ -9,6 +9,8 @@ or
 
 Source: https://github.com/gitname/react-gh-pages
 
+Had to install `npm i minimatch` and also had to upgrade node to 20 by using msi installer on [node.js website](https://nodejs.org/en/download/)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
