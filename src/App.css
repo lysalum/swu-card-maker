@@ -54,7 +54,14 @@
 
 #card-img {
     max-height: calc(min(80vh, 1000px));
-    background-color: gray;
     aspect-ratio: 716 / 1000;
     margin: auto;
+    border: 1px solid gray;
+    border-radius: 20px;
+    /* box-sizing: border-box; */
+}
+
+.img-component {
+    width: 100%;
+    height: 100%;
 }
