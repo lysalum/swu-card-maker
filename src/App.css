@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,26 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+.page-padding {
+    padding: 50px;
+}
+
+.page-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-container {
+    max-height: 80vh;
+    width: 100%;
+}
+
+#card-img {
+    max-height: calc(min(80vh, 1000px));
+    background-color: gray;
+    aspect-ratio: 716 / 1000;
+    margin: auto;
 }

@@ -16,7 +16,7 @@ function App() {
 				const img = new Image();
 				img.src = dataUrl;
 				document.body.appendChild(img);
-                
+
 				let link = document.createElement("a");
 				link.download = "my-image-name.png";
 				link.href = dataUrl;
@@ -29,7 +29,7 @@ function App() {
 
 	return (
 		<div className="App">
-			<header className="App-header" id={"thingy"}>
+			{/* <header className="App-header" id={"thingy"}>
 				<img src={logo} className="App-logo" alt="logo" />
 				<p>
 					Edit <code>src/App.tsx</code> and save to reload. hmmm
@@ -42,8 +42,16 @@ function App() {
 				>
 					Learn React
 				</a>
+			</header> */}
+
+			<div className={"page-padding"}>
+                <div className="page-content">
+                    <div className="card-container">
+				<div id="card-img"></div>
+                </div>
 				<button onClick={exportImage}>HERE</button>
-			</header>
+                </div>
+			</div>
 		</div>
 	);
 }
