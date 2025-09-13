@@ -7,8 +7,11 @@
 			min-height: 150px;
 			border: 1px black solid;
 			padding: 10px 20px;
-            p, ul {
+            p, ul, ol {
                 margin: 2px;
+            }
+            ul, ol {
+                padding-left: 20px;
             }
 		}
 	}
