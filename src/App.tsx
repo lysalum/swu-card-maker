@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import logo from "./logo.svg";
+import React, { useRef, useState } from "react";
+// import logo from "./logo.svg";
 import "./App.scss";
 
 import * as htmlToImage from "html-to-image";
@@ -12,6 +12,8 @@ import {
 	powerOptions,
 } from "./consts";
 import Select, { SingleValue } from "react-select";
+import RichTextEditor from "./components/tipTapEditor";
+import { Editor } from "@tiptap/react";
 
 function App() {
 	const [frame, setFrame] = useState<string | undefined>(
@@ -43,6 +45,14 @@ function App() {
 	const formatTraits = (text: string) => {
 		setLeaderTraits(text.replaceAll(",", " • "));
 	};
+
+    const [richTextContent, setRichTextContent] = useState('');
+    const editorRef = useRef<Editor | null>(null);
+
+    const handleContentChange = (htmlContent: string) => {
+        console.log('htmlContent', htmlContent);
+      setRichTextContent(htmlContent);
+    };
 
 	const exportImage = () => {
 		console.log("EXPORTING IANMGE");
@@ -122,7 +132,7 @@ function App() {
 							<p className="card-text leader-name">{leaderName}</p>
 							<p className="card-text leader-subtitle">{leaderSubtitle}</p>
 							<p className="card-text leader-traits">{leaderTraits}</p>
-							<p className="card-text card-content-container">{cardText}</p>
+							<p className="card-text card-content-container" dangerouslySetInnerHTML={{ __html: richTextContent}} ></p>
 						</div>
 					</div>
 					<button className="download-button" onClick={exportImage}>
@@ -216,6 +226,7 @@ function App() {
 								rows={6} // Optionally set the initial number of visible lines
 							/>
 						</label>
+                        <RichTextEditor ref={editorRef} onContentChange={handleContentChange} />
 					</div>
 				</div>
 			</div>
