@@ -1,6 +1,11 @@
 import React, { forwardRef, useCallback } from "react";
 // => Tiptap packages
-import { Editor, EditorContent, useEditor } from "@tiptap/react";
+import {
+	Editor,
+	EditorContent,
+	useEditor,
+	useEditorState,
+} from "@tiptap/react";
 import Bold from "@tiptap/extension-bold";
 import { BulletList } from "@tiptap/extension-list";
 import Code from "@tiptap/extension-code";
@@ -21,13 +26,13 @@ import classNames from "classnames";
 
 type RichTextEditorProps = {
 	onContentChange?: (content: string) => void;
-	analyticsId?: number;
-	shortcode?: string;
+	increaseTextSize?: () => void;
+	decreaseTextSize?: () => void;
 };
 
 const RichTextEditor = forwardRef<Editor | null, RichTextEditorProps>(
 	(props, ref) => {
-		const { onContentChange } = props;
+		const { onContentChange, increaseTextSize, decreaseTextSize } = props;
 		const editor = useEditor({
 			extensions: [
 				Bold,
@@ -47,8 +52,8 @@ const RichTextEditor = forwardRef<Editor | null, RichTextEditorProps>(
 				Color,
 			],
 			content: `
-            <p><span style="color: rgb(140, 10, 2);"><strong>Ambush</strong></span></p>
-            <p><span style="color: rgb(140, 10, 2);"><strong>Restore 2</strong></span></p>
+            <p><span style="color: #8c0a02;"><strong>Ambush</strong></span></p>
+            <p><span style="color: #8c0a02;"><strong>Restore 2</strong></span></p>
             <p><strong>On attack:</strong> Deal damage</p>
             <ul>
               <li><p>Draw a card.</p></li>
@@ -56,12 +61,11 @@ const RichTextEditor = forwardRef<Editor | null, RichTextEditorProps>(
             </ul>
           `, // Initial content
 
-
-            onCreate: ({ editor }) => {
-                if (onContentChange) {
-                    onContentChange(editor.getHTML());
-                }
-              },
+			onCreate: ({ editor }) => {
+				if (onContentChange) {
+					onContentChange(editor.getHTML());
+				}
+			},
 			onBlur: ({ editor }) => {
 				if (onContentChange) {
 					onContentChange(editor.getHTML());
@@ -73,6 +77,38 @@ const RichTextEditor = forwardRef<Editor | null, RichTextEditorProps>(
 				}
 			},
 		}) as Editor;
+
+		const editorState = useEditorState({
+			editor,
+			selector: (ctx) => {
+				return {
+					isBold:
+						ctx.editor.isActive("bold") &&
+						ctx.editor.getAttributes("textStyle").color !== "#8c0a02",
+					isItalic: ctx.editor.isActive("italic"),
+					isStrike: ctx.editor.isActive("strike"),
+					isBullet: ctx.editor.isActive("bulletList"),
+					isOrdered: ctx.editor.isActive("orderedList"),
+					isRed:
+						ctx.editor.getAttributes("textStyle").color === "#8c0a02" &&
+						ctx.editor.isActive("bold"),
+				};
+			},
+		});
+
+		console.log(
+			"ctx.editor.isActive('bold')",
+			editor.isActive("bold"),
+			editor.isActive("bold") &&
+				!editor.isActive("textStyle", {
+					color: "#8c0a02",
+				})
+		);
+		console.log(
+			"ctx.editoradsfasfasdfasdf",
+			editor.getAttributes("textStyle").color,
+			editor.isActive("textStyle", { color: "#8c0a02" })
+		);
 
 		// Attach the editor instance to the ref
 		React.useEffect(() => {
@@ -120,15 +156,16 @@ const RichTextEditor = forwardRef<Editor | null, RichTextEditorProps>(
 						<div className="menu-section">
 							<button
 								className={classNames("menu-button", {
-									"is-active": editor.isActive("bold"),
+									"is-active": editorState.isBold,
 								})}
 								onClick={toggleBold}
+                                disabled={editorState.isRed}
 							>
 								Bold
 							</button>
 							<button
 								className={classNames("menu-button", {
-									"is-active": editor.isActive("italic"),
+									"is-active": editorState.isItalic,
 								})}
 								onClick={toggleItalic}
 							>
@@ -137,7 +174,7 @@ const RichTextEditor = forwardRef<Editor | null, RichTextEditorProps>(
 
 							<button
 								className={classNames("menu-button", {
-									"is-active": editor.isActive("strike"),
+									"is-active": editorState.isStrike,
 								})}
 								onClick={toggleStrike}
 							>
@@ -145,7 +182,7 @@ const RichTextEditor = forwardRef<Editor | null, RichTextEditorProps>(
 							</button>
 							<button
 								className={classNames("menu-button", {
-									"is-active": editor.isActive("bulletList"),
+									"is-active": editorState.isBullet,
 								})}
 								onClick={toggleBulletList}
 							>
@@ -153,7 +190,7 @@ const RichTextEditor = forwardRef<Editor | null, RichTextEditorProps>(
 							</button>
 							<button
 								className={classNames("menu-button", {
-									"is-active": editor.isActive("orderedList"),
+									"is-active": editorState.isOrdered,
 								})}
 								onClick={toggleOrderedList}
 							>
@@ -182,12 +219,14 @@ const RichTextEditor = forwardRef<Editor | null, RichTextEditorProps>(
 					<div className="menu-section">
 						<button
 							className={classNames("menu-button red-button", {
-								"is-active": editor.isActive("textStyle", {
-									color: "#8c0a02",
-								}),
+								"is-active": editorState.isRed,
 							})}
 							onClick={() => {
-								editor.chain().focus().setColor("#8c0a02").run();
+								if (editor.getAttributes("textStyle").color === "#8c0a02") {
+									editor.chain().focus().unsetColor().run();
+								} else {
+									editor.chain().focus().setColor("#8c0a02").run();
+								}
 								editor.chain().focus().toggleBold().run();
 							}}
 							data-testid="setRed"
@@ -195,18 +234,26 @@ const RichTextEditor = forwardRef<Editor | null, RichTextEditorProps>(
 							Color text red
 						</button>
 						<button
-							className={classNames("menu-button", {
-								"is-active": editor.isActive("textStyle", {
-									color: "#000000",
-								}),
-							})}
+							className={classNames("menu-button")}
 							onClick={() => {
-								editor.chain().focus().unsetColor().run()
+								editor.chain().focus().unsetColor().run();
 								editor.chain().focus().toggleBold().run();
 							}}
 							data-testid="setBlack"
 						>
 							Unset color
+						</button>
+						<button
+							className={classNames("menu-button text-size-increase")}
+							onClick={increaseTextSize}
+						>
+							Increase text size
+						</button>
+						<button
+							className={classNames("menu-button text-size-decrease")}
+							onClick={decreaseTextSize}
+						>
+							Decrease text size
 						</button>
 					</div>
 				</div>

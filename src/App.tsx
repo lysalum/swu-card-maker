@@ -14,6 +14,7 @@ import {
 import Select, { SingleValue } from "react-select";
 import RichTextEditor from "./components/tipTapEditor";
 import { Editor } from "@tiptap/react";
+import { text } from "node:stream/consumers";
 
 function App() {
 	const [frame, setFrame] = useState<string | undefined>(
@@ -50,8 +51,23 @@ function App() {
 		setRichTextContent(htmlContent);
 	};
 
+    const decreaseTextSize = () => {
+        const textNode = document.querySelector(".card-text.card-content-container") as HTMLElement;
+        let textSize = parseFloat(window.getComputedStyle(textNode).fontSize);
+
+        textSize -= .5;
+        textNode.style.fontSize = textSize + 'px';
+    }
+
+    const increaseTextSize = () => {
+        const textNode = document.querySelector(".card-text.card-content-container") as HTMLElement;
+        let textSize = parseFloat(window.getComputedStyle(textNode).fontSize);
+
+        textSize += .5;
+        textNode.style.fontSize = textSize + 'px';
+    }
+
 	const exportImage = () => {
-		console.log("EXPORTING IANMGE");
 		const node = document.getElementById("card-img") as HTMLElement;
 		// const node = ogNode.cloneNode(true) as HTMLElement;
 
@@ -211,6 +227,8 @@ function App() {
 								<RichTextEditor
 									ref={editorRef}
 									onContentChange={handleContentChange}
+                                    decreaseTextSize={decreaseTextSize}
+                                    increaseTextSize={increaseTextSize}
 								/>
 							</div>
 						</div>

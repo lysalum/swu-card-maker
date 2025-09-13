@@ -37,6 +37,20 @@
 		// cursor: default;
 		pointer-events: none;
 	}
+    &.is-active {
+        background-color: skyblue;
+    }
+}
+
+.text-size-increase {
+    margin-left: 16px;
+    // font-size: 18px;
+    background-color:bisque;
+}
+
+.text-size-decrease {
+    // font-size: 10px;
+    background-color:bisque;
 }
 
 .red-button {

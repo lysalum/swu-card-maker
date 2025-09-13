@@ -156,7 +156,7 @@ for (let i = 0; i < 11; i ++) {
 export const powerOptions = power;
 
 let health = [];
-for (let i = 0; i < 11; i ++) {
+for (let i = 1; i < 11; i ++) {
     // @ts-ignore
     health.push({value: imgMap[`health${i}`], label: i})
 }
