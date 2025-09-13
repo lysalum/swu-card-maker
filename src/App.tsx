@@ -46,13 +46,13 @@ function App() {
 		setLeaderTraits(text.replaceAll(",", " • "));
 	};
 
-    const [richTextContent, setRichTextContent] = useState('');
-    const editorRef = useRef<Editor | null>(null);
+	const [richTextContent, setRichTextContent] = useState("");
+	const editorRef = useRef<Editor | null>(null);
 
-    const handleContentChange = (htmlContent: string) => {
-        console.log('htmlContent', htmlContent);
-      setRichTextContent(htmlContent);
-    };
+	const handleContentChange = (htmlContent: string) => {
+		console.log("htmlContent", htmlContent);
+		setRichTextContent(htmlContent);
+	};
 
 	const exportImage = () => {
 		console.log("EXPORTING IANMGE");
@@ -98,135 +98,130 @@ function App() {
 
 	return (
 		<div className="App">
-			{/* <header className="App-header" id={"thingy"}>
-				<img src={logo} className="App-logo" alt="logo" />
-				<p>
-					Edit <code>src/App.tsx</code> and save to reload. hmmm
-				</p>
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Learn React
-				</a>
-			</header> */}
-
 			<div className={"page-padding"}>
 				<div className="page-content">
-					<div className="card-container">
-						<div id="card-img" className="img-div">
-							<img className="img-component card-frame" src={frame}></img>
-							<img className="img-component card-cost" src={cost}></img>
-							<img
-								className="img-component card-leader-color"
-								src={leaderColorAspect}
-							></img>
-							<img
-								className="img-component card-leader-aspect"
-								src={leaderAspect}
-							></img>
-							<img className="img-component card-health" src={health}></img>
-							<img className="img-component card-power" src={power}></img>
-							<p className="card-text leader-name">{leaderName}</p>
-							<p className="card-text leader-subtitle">{leaderSubtitle}</p>
-							<p className="card-text leader-traits">{leaderTraits}</p>
-							<p className="card-text card-content-container" dangerouslySetInnerHTML={{ __html: richTextContent}} ></p>
+					<div className="image-half">
+						<div className="card-container">
+							<div id="card-img" className="img-div">
+								<img className="img-component card-frame" src={frame}></img>
+								<img className="img-component card-cost" src={cost}></img>
+								<img
+									className="img-component card-leader-color"
+									src={leaderColorAspect}
+								></img>
+								<img
+									className="img-component card-leader-aspect"
+									src={leaderAspect}
+								></img>
+								<img className="img-component card-health" src={health}></img>
+								<img className="img-component card-power" src={power}></img>
+								<p className="card-text leader-name">{leaderName}</p>
+								<p className="card-text leader-subtitle">{leaderSubtitle}</p>
+								<p className="card-text leader-traits">{leaderTraits}</p>
+								<p
+									className="card-text card-content-container"
+									dangerouslySetInnerHTML={{ __html: richTextContent }}
+								></p>
+							</div>
 						</div>
+						<button className="download-button" onClick={exportImage}>
+							Download Image
+						</button>
 					</div>
-					<button className="download-button" onClick={exportImage}>
-						Download Image
-					</button>
-					<div className="selects">
-						<div className="select-item">
-							<div className="select-cost">Select cost</div>
-							<Select
-								className="card-select cost-select"
-								options={costOptions}
-								defaultValue={costOptions[0]}
-								onChange={(option) => setCost(option?.value)}
-							/>
+					<div className="other-half">
+						<div className="selects">
+							<div className="select-item">
+								<div className="select-cost">Select cost</div>
+								<Select
+									className="card-select cost-select"
+									options={costOptions}
+									defaultValue={costOptions[0]}
+									onChange={(option) => setCost(option?.value)}
+								/>
+							</div>
+
+							<div className="select-item">
+								<div className="select-label">Select template</div>
+								<Select
+									className="card-select frame-select"
+									options={frameOptions}
+									defaultValue={frameOptions[0]}
+									onChange={(option) => {
+										setFrame(option?.value);
+										setLeaderAspect(option?.aspect);
+										setLeaderColorAspect(option?.color);
+									}}
+								/>
+							</div>
+
+							<div className="select-item">
+								<div className="select-label">Select power</div>
+								<Select
+									className="card-select power-select"
+									options={powerOptions}
+									defaultValue={powerOptions[2]}
+									onChange={(option) => setPower(option?.value)}
+								/>
+							</div>
+
+							<div className="select-item">
+								<div className="select-label">Select health</div>
+								<Select
+									className="card-select health-select"
+									options={healthOptions}
+									defaultValue={healthOptions[5]}
+									onChange={(option) => setHealth(option?.value)}
+								/>
+							</div>
 						</div>
 
-						<div className="select-item">
-							<div className="select-label">Select template</div>
-							<Select
-								className="card-select frame-select"
-								options={frameOptions}
-								defaultValue={frameOptions[0]}
-								onChange={(option) => {
-									setFrame(option?.value);
-									setLeaderAspect(option?.aspect);
-									setLeaderColorAspect(option?.color);
-								}}
+						<div className="text-inputs">
+							<label>
+								Leader Name (Capitalize first letter of each name)
+								<br />
+								<input
+									name="leaderName"
+									value={leaderName}
+									onChange={(e) => setLeaderName(e.target.value)}
+								/>
+							</label>
+							<label>
+								Leader Subtitle
+								<br />
+								<input
+									name="leaderSubtitle"
+									value={leaderSubtitle}
+									onChange={(e) => setLeaderSubtitle(e.target.value)}
+								/>
+							</label>
+							<label>
+								Leader Traits (separate traits by comma)
+								<br />
+								<input
+									name="leaderTraits"
+									value={leaderTraits}
+									onChange={(e) => {
+										formatTraits(e.target.value);
+									}}
+								/>
+							</label>
+							<label>
+								Card text
+								<br />
+								<textarea
+									value={cardText}
+									onChange={(e) => {
+										setCardText(e.target.value);
+									}}
+									placeholder="Enter Card Text"
+									rows={6} // Optionally set the initial number of visible lines
+								/>
+							</label>
+							<RichTextEditor
+								ref={editorRef}
+								onContentChange={handleContentChange}
 							/>
 						</div>
-
-						<div className="select-item">
-							<div className="select-label">Select power</div>
-							<Select
-								className="card-select power-select"
-								options={powerOptions}
-								defaultValue={powerOptions[2]}
-								onChange={(option) => setPower(option?.value)}
-							/>
-						</div>
-
-						<div className="select-item">
-							<div className="select-label">Select health</div>
-							<Select
-								className="card-select health-select"
-								options={healthOptions}
-								defaultValue={healthOptions[5]}
-								onChange={(option) => setHealth(option?.value)}
-							/>
-						</div>
-					</div>
-
-					<div className="text-inputs">
-						<label>
-							Leader Name (Capitalize first letter of each name)
-							<br />
-							<input
-								name="leaderName"
-								value={leaderName}
-								onChange={(e) => setLeaderName(e.target.value)}
-							/>
-						</label>
-						<label>
-							Leader Subtitle
-							<br />
-							<input
-								name="leaderSubtitle"
-								value={leaderSubtitle}
-								onChange={(e) => setLeaderSubtitle(e.target.value)}
-							/>
-						</label>
-						<label>
-							Leader Traits (separate traits by comma)
-							<br />
-							<input
-								name="leaderTraits"
-								value={leaderTraits}
-								onChange={(e) => {
-									formatTraits(e.target.value);
-								}}
-							/>
-						</label>
-						<label>
-							Card text
-							<br />
-							<textarea
-								value={cardText}
-								onChange={(e) => {
-									setCardText(e.target.value);
-								}}
-								placeholder="Enter Card Text"
-								rows={6} // Optionally set the initial number of visible lines
-							/>
-						</label>
-                        <RichTextEditor ref={editorRef} onContentChange={handleContentChange} />
 					</div>
 				</div>
 			</div>
