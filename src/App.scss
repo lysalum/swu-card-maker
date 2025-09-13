@@ -46,21 +46,21 @@
 @media (max-width: 700px) {
 	div.page-content {
 		flex-direction: column;
-        > div {        
-            width: 100%;
-            height: 50vh;
-        }
-        > .image-half {
-            min-height: 484px;
-            height: 50vh;
-        }
+		> div {
+			width: 100%;
+			height: 50vh;
+		}
+		> .image-half {
+			min-height: 484px;
+			height: 50vh;
+		}
 	}
 
 	div.card-container {
 		max-height: calc(min(50vh, 100%));
 		min-height: 400px;
 		width: 100%;
-        flex-grow: 1;
+		flex-grow: 1;
 	}
 
 	div#card-img {
@@ -75,7 +75,7 @@
 		position: relative;
 		container-name: card-grid;
 		container-type: size;
-        min-width: 285px;
+		min-width: 285px;
 	}
 }
 
@@ -85,9 +85,9 @@
 	flex-direction: row-reverse;
 	align-items: center;
 	padding-bottom: 1000px;
-    > div {
-        width: 50%;
-    }
+	> div {
+		width: 50%;
+	}
 }
 
 .image-half {
@@ -160,14 +160,30 @@
 .card-content-container {
 	position: absolute;
 	top: 70%;
-	font-size: 3.5cqh;
+	font-size: 3.2cqh;
 	text-align: left;
 	width: 100%;
 	height: 21%;
 	padding: 0px 8%;
 	box-sizing: border-box;
 	display: flex;
-	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	p,
+	ul {
+		margin: 0;
+	}
+    ul {
+        
+        padding-left: 4%;
+    }
+	span {
+		font-variant-caps: small-caps;
+	}
+    li::marker { 
+        font-size: 2cqh;
+    }
 }
 
 .img-component {
@@ -185,7 +201,7 @@ button {
 	color: white;
 	border: none;
 	border-radius: 10px;
-    height: 60px;
+	font-family: Barlow;
 	&:hover {
 		text-decoration: underline;
 		background-color: rgb(49, 145, 255);
@@ -194,8 +210,9 @@ button {
 }
 
 .download-button {
+	height: 60px;
 	padding: 16px;
-	font: 500 24px BarlowSemiCondensed;
+	font: 500 24px Barlow;
 }
 
 .dot-button {
@@ -207,6 +224,13 @@ button {
 	display: flex;
 	flex-wrap: wrap;
 	width: 100%;
+    row-gap: 12px;
+}
+
+.select-label, .text-inputs>label {
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 18px;
 }
 
 .select-item {
@@ -217,8 +241,11 @@ button {
 
 .text-inputs {
 	display: flex;
+    align-items: flex-end;
+    row-gap: 12px;
 	flex-wrap: wrap;
 	width: 100%;
+    margin: 24px 0px;
 	> * {
 		padding: 8px;
 		box-sizing: border-box;
@@ -229,5 +256,11 @@ button {
 	input {
 		box-sizing: border-box;
 		width: 100%;
+        font-size: 24px;
+        margin-top: 8px;
 	}
+}
+
+.richtext-section {
+    width: 100%;
 }

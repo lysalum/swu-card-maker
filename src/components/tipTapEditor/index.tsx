@@ -46,13 +46,28 @@ const RichTextEditor = forwardRef<Editor | null, RichTextEditorProps>(
 				TextStyle,
 				Color,
 			],
-			content: "", // Initial content
+			content: `
+            <p><span style="color: rgb(140, 10, 2);"><strong>Ambush</strong></span></p>
+            <p><span style="color: rgb(140, 10, 2);"><strong>Restore 2</strong></span></p>
+            <p><strong>On attack:</strong> Deal damage</p>
+            <ul>
+              <li><p>Draw a card.</p></li>
+              <li><p>Defeat up to 2 upgrades</p></li>
+            </ul>
+          `, // Initial content
+
+
+            onCreate: ({ editor }) => {
+                if (onContentChange) {
+                    onContentChange(editor.getHTML());
+                }
+              },
 			onBlur: ({ editor }) => {
 				if (onContentChange) {
 					onContentChange(editor.getHTML());
 				}
 			},
-            onUpdate: ({ editor }) => {
+			onUpdate: ({ editor }) => {
 				if (onContentChange) {
 					onContentChange(editor.getHTML());
 				}
@@ -101,84 +116,97 @@ const RichTextEditor = forwardRef<Editor | null, RichTextEditorProps>(
 		return (
 			<div className="editor">
 				<div className="menu">
-					<div className="menu-section">
-						<button
-							className={classNames("menu-button", {
-								"is-active": editor.isActive("bold"),
-							})}
-							onClick={toggleBold}
-						>
-							Bold
-						</button>
-						<button
-							className={classNames("menu-button", {
-								"is-active": editor.isActive("italic"),
-							})}
-							onClick={toggleItalic}
-						>
-							Italic
-						</button>
-					</div>
-					<div className="menu-section">
-						<button
-							className={classNames("menu-button", {
-								"is-active": editor.isActive("strike"),
-							})}
-							onClick={toggleStrike}
-						>
-							Strikethrough
-						</button>
+					<div className="menu-contains-halves">
+						<div className="menu-section">
+							<button
+								className={classNames("menu-button", {
+									"is-active": editor.isActive("bold"),
+								})}
+								onClick={toggleBold}
+							>
+								Bold
+							</button>
+							<button
+								className={classNames("menu-button", {
+									"is-active": editor.isActive("italic"),
+								})}
+								onClick={toggleItalic}
+							>
+								Italic
+							</button>
 
-						<button
-							className={classNames("menu-button", {
-								"is-active": editor.isActive("heading", { level: 2 }),
-							})}
-							onClick={toggleHeading}
-						>
-							H2
-						</button>
-						<button
-							className={classNames("menu-button", {
-								"is-active": editor.isActive("bulletList"),
-							})}
-							onClick={toggleBulletList}
-						>
-							BulletList
-						</button>
-						<button
-							className={classNames("menu-button", {
-								"is-active": editor.isActive("orderedList"),
-							})}
-							onClick={toggleOrderedList}
-						>
-							Ordered List
-						</button>
+							<button
+								className={classNames("menu-button", {
+									"is-active": editor.isActive("strike"),
+								})}
+								onClick={toggleStrike}
+							>
+								Strikethrough
+							</button>
+							<button
+								className={classNames("menu-button", {
+									"is-active": editor.isActive("bulletList"),
+								})}
+								onClick={toggleBulletList}
+							>
+								BulletList
+							</button>
+							<button
+								className={classNames("menu-button", {
+									"is-active": editor.isActive("orderedList"),
+								})}
+								onClick={toggleOrderedList}
+							>
+								Ordered List
+							</button>
+						</div>
+						<div className="menu-section">
+							<div className="menu-section">
+								<button
+									className="menu-button"
+									onClick={() => editor.chain().focus().undo().run()}
+									disabled={!editor.can().chain().undo().run() ?? false}
+								>
+									Undo
+								</button>
+								<button
+									className="menu-button"
+									onClick={() => editor.chain().focus().redo().run()}
+									disabled={!editor.can().chain().redo().run() ?? false}
+								>
+									Redo
+								</button>
+							</div>
+						</div>
 					</div>
 					<div className="menu-section">
 						<button
-							className="menu-button"
-							onClick={() => editor.chain().focus().undo().run()}
-							disabled={!editor.can().chain().undo().run() ?? false}
+							className={classNames("menu-button red-button", {
+								"is-active": editor.isActive("textStyle", {
+									color: "#8c0a02",
+								}),
+							})}
+							onClick={() => {
+								editor.chain().focus().setColor("#8c0a02").run();
+								editor.chain().focus().toggleBold().run();
+							}}
+							data-testid="setRed"
 						>
-							Undo
+							Color text red
 						</button>
-						<button
-							className="menu-button"
-							onClick={() => editor.chain().focus().redo().run()}
-							disabled={!editor.can().chain().redo().run() ?? false}
-						>
-							Redo
-						</button>
-					</div>
-					<div className="menu-section">
 						<button
 							className={classNames("menu-button", {
-								"is-active": editor.isActive('textStyle', { color: '#F98181' }),
+								"is-active": editor.isActive("textStyle", {
+									color: "#000000",
+								}),
 							})}
-							onClick={() => editor.chain().focus().setColor("#958DF1").run()}
-							data-testid="setPurple"
+							onClick={() => {
+								editor.chain().focus().unsetColor().run()
+								editor.chain().focus().toggleBold().run();
+							}}
+							data-testid="setBlack"
 						>
-							Red
+							Unset color
 						</button>
 					</div>
 				</div>

@@ -1,9 +1,55 @@
 .editor {
-    width: 100%;
-    border: 1px solid gray;
-    > div:last-child > div {
-        height: 100%;
-        border: 1px black solid;
-        padding: 0px 20px;
-    }
+	width: 100%;
+	border: 1px solid gray;
+    padding: 8px;
+	> div:last-child {
+		> div {
+			min-height: 150px;
+			border: 1px black solid;
+			padding: 10px 20px;
+            p, ul {
+                margin: 2px;
+            }
+		}
+	}
+}
+
+.menu {
+	display: flex;
+	gap: 8px;
+	flex-direction: column;
+	margin-bottom: 8px;
+}
+
+.menu-button {
+	background-color: #f0eeed;
+	color: black;
+	padding: 8px;
+	font-weight: 600;
+	&:hover {
+		background-color: #cccccc;
+	}
+	&:disabled {
+		opacity: 0.5;
+		// cursor: default;
+		pointer-events: none;
+	}
+}
+
+.red-button {
+	color: #8c0a02;
+}
+
+.menu-contains-halves {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.menu-section {
+	display: flex;
+	gap: 4px;
+	flex-direction: row;
 }

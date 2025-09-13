@@ -19,7 +19,7 @@ function App() {
 	const [frame, setFrame] = useState<string | undefined>(
 		imgMap["frameRedHero"]
 	);
-	const [cost, setCost] = useState<string | undefined>(imgMap["cost0"]);
+	const [cost, setCost] = useState<string | undefined>(imgMap["cost4"]);
 	const [leaderColorAspect, setLeaderColorAspect] = useState<
 		string | undefined
 	>(imgMap["leaderAspectRed"]);
@@ -38,16 +38,12 @@ function App() {
 	const [leaderTraits, setLeaderTraits] = useState<string | undefined>(
 		"Mandalorian • Rebel • Spectre"
 	);
-	const [cardText, setCardText] = useState<string | undefined>(
-		"On Attack: Deal 1 damage to each enemy base."
-	);
+	const [richTextContent, setRichTextContent] = useState("");
+	const editorRef = useRef<Editor | null>(null);
 
 	const formatTraits = (text: string) => {
 		setLeaderTraits(text.replaceAll(",", " • "));
 	};
-
-	const [richTextContent, setRichTextContent] = useState("");
-	const editorRef = useRef<Editor | null>(null);
 
 	const handleContentChange = (htmlContent: string) => {
 		console.log("htmlContent", htmlContent);
@@ -61,6 +57,12 @@ function App() {
 
 		// Border only shows if using toPng ogNode, not node, because cloneNode
 		// does not preserve computed styles from CSS files or stylesheets
+		const origWidth = node.style.width;
+		const orignHeight = node.style.height;
+		const origMinwidth = node.style.minWidth;
+		const origMinHeight = node.style.minHeight;
+		const origMargin = node.style.margin;
+
 		node.style.width = "716px";
 		node.style.height = "1000px";
 		node.style.minWidth = "716px";
@@ -84,12 +86,11 @@ function App() {
 				document.body.appendChild(img);
 				// document.body.appendChild(node);
 
-				node.style.width = "unset";
-				node.style.height = "unset";
-				node.style.minWidth = "unset";
-				node.style.minHeight = "unset";
-				node.style.maxHeight = "calc(min(50vh, 1000px))";
-				node.style.margin = "auto";
+				node.style.width = origWidth;
+				node.style.height = orignHeight;
+				node.style.minWidth = origMinwidth;
+				node.style.minHeight = origMinHeight;
+				node.style.margin = origMargin;
 			})
 			.catch((err) => {
 				console.error("oops, something went wrong!", err);
@@ -131,17 +132,17 @@ function App() {
 					<div className="other-half">
 						<div className="selects">
 							<div className="select-item">
-								<div className="select-cost">Select cost</div>
+								<div className="select-label">Cost</div>
 								<Select
 									className="card-select cost-select"
 									options={costOptions}
-									defaultValue={costOptions[0]}
+									defaultValue={costOptions[4]}
 									onChange={(option) => setCost(option?.value)}
 								/>
 							</div>
 
 							<div className="select-item">
-								<div className="select-label">Select template</div>
+								<div className="select-label">Template</div>
 								<Select
 									className="card-select frame-select"
 									options={frameOptions}
@@ -155,7 +156,7 @@ function App() {
 							</div>
 
 							<div className="select-item">
-								<div className="select-label">Select power</div>
+								<div className="select-label">Power</div>
 								<Select
 									className="card-select power-select"
 									options={powerOptions}
@@ -165,7 +166,7 @@ function App() {
 							</div>
 
 							<div className="select-item">
-								<div className="select-label">Select health</div>
+								<div className="select-label">Health</div>
 								<Select
 									className="card-select health-select"
 									options={healthOptions}
@@ -205,22 +206,13 @@ function App() {
 									}}
 								/>
 							</label>
-							<label>
-								Card text
-								<br />
-								<textarea
-									value={cardText}
-									onChange={(e) => {
-										setCardText(e.target.value);
-									}}
-									placeholder="Enter Card Text"
-									rows={6} // Optionally set the initial number of visible lines
+							<div className="richtext-section">
+								<div className="select-label">Card Content</div>
+								<RichTextEditor
+									ref={editorRef}
+									onContentChange={handleContentChange}
 								/>
-							</label>
-							<RichTextEditor
-								ref={editorRef}
-								onContentChange={handleContentChange}
-							/>
+							</div>
 						</div>
 					</div>
 				</div>
