@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import logo from "./logo.svg";
-import "./App.css";
+import "./App.scss";
 
 import * as htmlToImage from "html-to-image";
 import { toPng, toJpeg, toBlob, toPixelData, toSvg } from "html-to-image";
@@ -27,20 +27,35 @@ function App() {
 	const [health, setHealth] = useState<string | undefined>(imgMap["health5"]);
 	const [power, setPower] = useState<string | undefined>(imgMap["power2"]);
 
-	console.log("frame", frame);
+	const [leaderName, setLeaderName] = useState<string | undefined>(
+		"Sabine Wren"
+	);
+	const [leaderSubtitle, setLeaderSubtitle] = useState<string | undefined>(
+		"Galvanized Revolutionary"
+	);
+	const [leaderTraits, setLeaderTraits] = useState<string | undefined>(
+		"Mandalorian • Rebel • Spectre"
+	);
+	const [cardText, setCardText] = useState<string | undefined>(
+		"On Attack: Deal 1 damage to each enemy base."
+	);
+
+	const formatTraits = (text: string) => {
+		setLeaderTraits(text.replaceAll(",", " • "));
+	};
 
 	const exportImage = () => {
 		console.log("EXPORTING IANMGE");
-		const ogNode = document.getElementById("card-img") as HTMLElement;
-		const node = ogNode.cloneNode(true) as HTMLElement;
+		const node = document.getElementById("card-img") as HTMLElement;
+		// const node = ogNode.cloneNode(true) as HTMLElement;
 
 		// Border only shows if using toPng ogNode, not node, because cloneNode
 		// does not preserve computed styles from CSS files or stylesheets
-		node.id = "card-img-export";
 		node.style.width = "716px";
 		node.style.height = "1000px";
 		node.style.minWidth = "716px";
 		node.style.minHeight = "1000px";
+		node.style.margin = "0";
 
 		toPng(node, {
 			width: 716,
@@ -58,6 +73,13 @@ function App() {
 				link.click();
 				document.body.appendChild(img);
 				// document.body.appendChild(node);
+
+				node.style.width = "unset";
+				node.style.height = "unset";
+				node.style.minWidth = "unset";
+				node.style.minHeight = "unset";
+				node.style.maxHeight = "calc(min(50vh, 1000px))";
+				node.style.margin = "auto";
 			})
 			.catch((err) => {
 				console.error("oops, something went wrong!", err);
@@ -97,10 +119,26 @@ function App() {
 							></img>
 							<img className="img-component card-health" src={health}></img>
 							<img className="img-component card-power" src={power}></img>
+							<p className="card-text leader-name">{leaderName}</p>
+							<p className="card-text leader-subtitle">{leaderSubtitle}</p>
+							<p className="card-text leader-traits">{leaderTraits}</p>
+							<p className="card-text card-content-container">{cardText}</p>
 						</div>
 					</div>
-					<button className="download-button" onClick={exportImage}>Download image</button>
+					<button className="download-button" onClick={exportImage}>
+						Download Image
+					</button>
 					<div className="selects">
+						<div className="select-item">
+							<div className="select-cost">Select cost</div>
+							<Select
+								className="card-select cost-select"
+								options={costOptions}
+								defaultValue={costOptions[0]}
+								onChange={(option) => setCost(option?.value)}
+							/>
+						</div>
+
 						<div className="select-item">
 							<div className="select-label">Select template</div>
 							<Select
@@ -112,16 +150,6 @@ function App() {
 									setLeaderAspect(option?.aspect);
 									setLeaderColorAspect(option?.color);
 								}}
-							/>
-						</div>
-
-						<div className="select-item">
-							<div className="select-cost">Select cost</div>
-							<Select
-								className="card-select cost-select"
-								options={costOptions}
-								defaultValue={costOptions[0]}
-								onChange={(option) => setCost(option?.value)}
 							/>
 						</div>
 
@@ -144,6 +172,50 @@ function App() {
 								onChange={(option) => setHealth(option?.value)}
 							/>
 						</div>
+					</div>
+
+					<div className="text-inputs">
+						<label>
+							Leader Name (Capitalize first letter of each name)
+							<br />
+							<input
+								name="leaderName"
+								value={leaderName}
+								onChange={(e) => setLeaderName(e.target.value)}
+							/>
+						</label>
+						<label>
+							Leader Subtitle
+							<br />
+							<input
+								name="leaderSubtitle"
+								value={leaderSubtitle}
+								onChange={(e) => setLeaderSubtitle(e.target.value)}
+							/>
+						</label>
+						<label>
+							Leader Traits (separate traits by comma)
+							<br />
+							<input
+								name="leaderTraits"
+								value={leaderTraits}
+								onChange={(e) => {
+									formatTraits(e.target.value);
+								}}
+							/>
+						</label>
+						<label>
+							Card text
+							<br />
+							<textarea
+								value={cardText}
+								onChange={(e) => {
+									setCardText(e.target.value);
+								}}
+								placeholder="Enter Card Text"
+								rows={6} // Optionally set the initial number of visible lines
+							/>
+						</label>
 					</div>
 				</div>
 			</div>
