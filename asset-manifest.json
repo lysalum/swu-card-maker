@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/swu-card-maker/static/css/main.d49aba51.chunk.css",
-    "main.js": "/swu-card-maker/static/js/main.7e500936.chunk.js",
-    "main.js.map": "/swu-card-maker/static/js/main.7e500936.chunk.js.map",
+    "main.css": "/swu-card-maker/static/css/main.8e7ad19a.chunk.css",
+    "main.js": "/swu-card-maker/static/js/main.df0e1ccf.chunk.js",
+    "main.js.map": "/swu-card-maker/static/js/main.df0e1ccf.chunk.js.map",
     "runtime-main.js": "/swu-card-maker/static/js/runtime-main.4c544bba.js",
     "runtime-main.js.map": "/swu-card-maker/static/js/runtime-main.4c544bba.js.map",
-    "static/js/2.0f9be252.chunk.js": "/swu-card-maker/static/js/2.0f9be252.chunk.js",
-    "static/js/2.0f9be252.chunk.js.map": "/swu-card-maker/static/js/2.0f9be252.chunk.js.map",
+    "static/js/2.df30d3aa.chunk.js": "/swu-card-maker/static/js/2.df30d3aa.chunk.js",
+    "static/js/2.df30d3aa.chunk.js.map": "/swu-card-maker/static/js/2.df30d3aa.chunk.js.map",
     "static/js/3.88c36687.chunk.js": "/swu-card-maker/static/js/3.88c36687.chunk.js",
     "static/js/3.88c36687.chunk.js.map": "/swu-card-maker/static/js/3.88c36687.chunk.js.map",
     "index.html": "/swu-card-maker/index.html",
-    "static/css/main.d49aba51.chunk.css.map": "/swu-card-maker/static/css/main.d49aba51.chunk.css.map",
-    "static/js/2.0f9be252.chunk.js.LICENSE.txt": "/swu-card-maker/static/js/2.0f9be252.chunk.js.LICENSE.txt",
+    "static/css/main.8e7ad19a.chunk.css.map": "/swu-card-maker/static/css/main.8e7ad19a.chunk.css.map",
+    "static/js/2.df30d3aa.chunk.js.LICENSE.txt": "/swu-card-maker/static/js/2.df30d3aa.chunk.js.LICENSE.txt",
     "static/media/App.scss": "/swu-card-maker/static/media/BarlowSemiCondensed-ThinItalic.192b5751.ttf",
     "static/media/blue_aspect_0.448b391e.png": "/swu-card-maker/static/media/blue_aspect_0.448b391e.png",
     "static/media/blue_aspect_1.f8d976ec.png": "/swu-card-maker/static/media/blue_aspect_1.f8d976ec.png",
@@ -72,8 +72,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.4c544bba.js",
-    "static/js/2.0f9be252.chunk.js",
-    "static/css/main.d49aba51.chunk.css",
-    "static/js/main.7e500936.chunk.js"
+    "static/js/2.df30d3aa.chunk.js",
+    "static/css/main.8e7ad19a.chunk.css",
+    "static/js/main.df0e1ccf.chunk.js"
   ]
 }
