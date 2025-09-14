@@ -12,6 +12,7 @@ import {
 	powerOptions,
 	firstLeaderAspectOptions,
 	secondLeaderAspectOptions,
+	halfFrameOptions,
 } from "./consts";
 import Select, { SingleValue } from "react-select";
 import RichTextEditor from "./components/tipTapEditor";
@@ -19,9 +20,8 @@ import { Editor } from "@tiptap/react";
 import { text } from "node:stream/consumers";
 
 function App() {
-	const [frame, setFrame] = useState<string | undefined>(
-		imgMap["frameRedHero"]
-	);
+	const [frame, setFrame] = useState<any>(frameOptions[0]);
+	const [halfFrame, setHalfFrame] = useState<any>(halfFrameOptions[0]);
 	const [cost, setCost] = useState<any>(costOptions[5]);
 	const [firstLeaderAspect, setFirstLeaderAspect] = useState<any>(
 		firstLeaderAspectOptions[2]
@@ -119,7 +119,7 @@ function App() {
 				console.error("oops, something went wrong!", err);
 			});
 	};
-
+	console.log(halfFrame.value);
 	return (
 		<div className="App">
 			<div className={"page-padding"}>
@@ -127,7 +127,22 @@ function App() {
 					<div className="image-half">
 						<div className="card-container">
 							<div id="card-img" className="img-div">
-								<img className="img-component card-frame" src={frame}></img>
+								<img
+									className={`img-component card-frame ${
+										frame.label.includes("Villainy") &&
+										"adjust-villain-frame-up"
+									}`}
+									src={frame.value}
+								></img>
+								{halfFrame.value && (
+									<img
+									className={`img-component card-half-frame ${
+										halfFrame.label.includes("Villainy") &&
+										"adjust-villain-frame-up"
+									}`}
+										src={halfFrame.value}
+									></img>
+								)}
 								<img className="img-component card-cost" src={cost.value}></img>
 								<img
 									className={`img-component card-leader-color ${
@@ -136,13 +151,15 @@ function App() {
 									}`}
 									src={firstLeaderAspect.value}
 								></img>
-								{secondLeaderAspect.value && <img
-									className={`img-component card-leader-aspect ${
-										secondLeaderAspect.needsAdjustment &&
-										"adjust-second-leader-aspect-down"
-									}`}
-									src={secondLeaderAspect.value}
-								></img>}
+								{secondLeaderAspect.value && (
+									<img
+										className={`img-component card-leader-aspect ${
+											secondLeaderAspect.needsAdjustment &&
+											"adjust-second-leader-aspect-down"
+										}`}
+										src={secondLeaderAspect.value}
+									></img>
+								)}
 								<img
 									className="img-component card-health"
 									src={health.value}
@@ -182,11 +199,21 @@ function App() {
 									options={frameOptions}
 									defaultValue={frameOptions[0]}
 									onChange={(option) => {
-										setFrame(option?.value);
+										setFrame(option);
 									}}
 								/>
 							</div>
-							<div className="select-item"></div>
+							<div className="select-item">
+								<div className="select-label">Right Half Frame (Optional)</div>
+								<Select
+									className="card-select half-frame-select"
+									options={halfFrameOptions}
+									defaultValue={halfFrameOptions[0]}
+									onChange={(option) => {
+										setHalfFrame(option);
+									}}
+								/>
+							</div>
 
 							<div className="select-item">
 								<div className="select-label">Leader Aspect First Color</div>
@@ -212,35 +239,35 @@ function App() {
 								/>
 							</div>
 
-								<div className="select-item">
-									<div className="select-label">Cost</div>
-									<Select
-										className="card-select cost-select"
-										options={costOptions}
-										defaultValue={costOptions[4]}
-										value={cost}
-										onChange={(option) => {
-											setCost(option);
-											if (option.label !== "Blank") {
-												setCustomCost("");
+							<div className="select-item">
+								<div className="select-label">Cost</div>
+								<Select
+									className="card-select cost-select"
+									options={costOptions}
+									defaultValue={costOptions[4]}
+									value={cost}
+									onChange={(option) => {
+										setCost(option);
+										if (option.label !== "Blank/Custom") {
+											setCustomCost("");
+										}
+									}}
+								/>
+
+								<label>
+									Custom Cost
+									<br />
+									<input
+										name="customCost"
+										value={customCost}
+										onChange={(e) => {
+											setCustomCost(e.target.value);
+											if (e.target.value !== "") {
+												setCost(costOptions[0]);
 											}
 										}}
 									/>
-
-									<label>
-										Custom Cost
-										<br />
-										<input
-											name="customCost"
-											value={customCost}
-											onChange={(e) => {
-												setCustomCost(e.target.value);
-												if (e.target.value !== "") {
-													setCost(costOptions[0]);
-												}
-											}}
-										/>
-									</label>
+								</label>
 							</div>
 
 							<div className="select-item">
@@ -252,7 +279,7 @@ function App() {
 									value={power}
 									onChange={(option) => {
 										setPower(option);
-										if (option.label !== "Blank") {
+										if (option.label !== "Blank/Custom") {
 											setCustomPower("");
 										}
 									}}
@@ -283,7 +310,7 @@ function App() {
 									value={health}
 									onChange={(option) => {
 										setHealth(option);
-										if (option.label !== "Blank") {
+										if (option.label !== "Blank/Custom") {
 											setCustomHealth("");
 										}
 									}}

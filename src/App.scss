@@ -199,7 +199,11 @@
 	right: 1px;
 }
 
-$text-shadow: rgba(0, 0, 0, .5);
+.adjust-villain-frame-up {
+    top: -.3%;
+}
+
+$text-shadow: rgba(0, 0, 0, .8);
 $shadow-thickness: 2;
 
 .card-custom-value {

@@ -19,6 +19,16 @@ import frameRedHero from "./assets/frame_red_hero.png";
 import frameRedVillain from "./assets/frame_red_villain.png";
 import frameYellowHero from "./assets/frame_yellow_hero.png";
 import frameYellowVillain from "./assets/frame_yellow_villain.png";
+
+import frameRightHalfHeroBlue from "./assets/right_hero_blue.png";
+import frameRightHalfHeroGreen from "./assets/right_hero_green.png";
+import frameRightHalfHeroRed from "./assets/right_hero_red.png";
+import frameRightHalfHeroYellow from "./assets/right_hero_yellow.png";
+import frameRightHalfVillainBlue from "./assets/right_villain_blue.png";
+import frameRightHalfVillainGreen from "./assets/right_villain_green.png";
+import frameRightHalfVillainRed from "./assets/right_villain_red.png";
+import frameRightHalfVillainYellow from "./assets/right_villain_yellow.png";
+
 import greenAspect0 from "./assets/green_aspect_0.png";
 import greenAspect1 from "./assets/green_aspect_1.png";
 import health1 from "./assets/health_1.png";
@@ -56,11 +66,9 @@ import villainAspect0 from "./assets/villain_aspect_0.png";
 import villainAspect1 from "./assets/villain_aspect_1.png";
 import yellowAspect0 from "./assets/yellow_aspect_0.png";
 import yellowAspect1 from "./assets/yellow_aspect_1.png";
-
 import costBlank from "./assets/blank_cost.png";
 import healthBlank from "./assets/blank_health.png";
 import powerBlank from "./assets/blank_power.png";
-
 
 export const imgMap = {
 	// Aspects
@@ -86,7 +94,7 @@ export const imgMap = {
 	firstLeaderAspectYellow,
 
 	// Cost icons
-    costBlank,
+	costBlank,
 	cost0,
 	cost1,
 	cost2,
@@ -100,7 +108,7 @@ export const imgMap = {
 	// cost10,
 
 	// Health icons
-    healthBlank,
+	healthBlank,
 	health1,
 	health2,
 	health3,
@@ -113,7 +121,7 @@ export const imgMap = {
 	health10,
 
 	// Power icons
-    powerBlank,
+	powerBlank,
 	power0,
 	power1,
 	power2,
@@ -138,52 +146,112 @@ export const imgMap = {
 };
 
 export const frameOptions = [
-    {value: frameRedHero, label: "Red Heroism", color: firstLeaderAspectRed, aspect: secondLeaderAspectHero},
-    {value: frameBlueHero, label: "Blue Heroism", color: firstLeaderAspectBlue, aspect: secondLeaderAspectHero},
-    {value: frameGreenHero, label: "Green Heroism", color: firstLeaderAspectGreen, aspect: secondLeaderAspectHero},
-    {value: frameYellowHero, label: "Yellow Heroism", color: firstLeaderAspectYellow, aspect: secondLeaderAspectHero},
-    {value: frameRedVillain, label: "Red Villainy", color: firstLeaderAspectRed, aspect: secondLeaderAspectVillain},
-    {value: frameBlueVillain, label: "Blue Villainy", color: firstLeaderAspectBlue, aspect: secondLeaderAspectVillain},
-    {value: frameGreenVillain, label: "Green Villainy", color: firstLeaderAspectGreen, aspect: secondLeaderAspectVillain},
-    {value: frameYellowVillain, label: "Yellow Villainy", color: firstLeaderAspectYellow, aspect: secondLeaderAspectVillain},
-]
+	{
+		value: frameRedHero,
+		label: "Red Heroism",
+		color: firstLeaderAspectRed,
+		aspect: secondLeaderAspectHero,
+	},
+	{
+		value: frameBlueHero,
+		label: "Blue Heroism",
+		color: firstLeaderAspectBlue,
+		aspect: secondLeaderAspectHero,
+	},
+	{
+		value: frameGreenHero,
+		label: "Green Heroism",
+		color: firstLeaderAspectGreen,
+		aspect: secondLeaderAspectHero,
+	},
+	{
+		value: frameYellowHero,
+		label: "Yellow Heroism",
+		color: firstLeaderAspectYellow,
+		aspect: secondLeaderAspectHero,
+	},
+	{
+		value: frameRedVillain,
+		label: "Red Villainy",
+		color: firstLeaderAspectRed,
+		aspect: secondLeaderAspectVillain,
+	},
+	{
+		value: frameBlueVillain,
+		label: "Blue Villainy",
+		color: firstLeaderAspectBlue,
+		aspect: secondLeaderAspectVillain,
+	},
+	{
+		value: frameGreenVillain,
+		label: "Green Villainy",
+		color: firstLeaderAspectGreen,
+		aspect: secondLeaderAspectVillain,
+	},
+	{
+		value: frameYellowVillain,
+		label: "Yellow Villainy",
+		color: firstLeaderAspectYellow,
+		aspect: secondLeaderAspectVillain,
+	},
+];
+
+export const halfFrameOptions = [
+	{ value: "", label: "None" },
+	{ value: frameRightHalfHeroBlue, label: "Blue Heroism" },
+	{ value: frameRightHalfHeroGreen, label: "Green Heroism" },
+	{ value: frameRightHalfHeroRed, label: "Red Heroism" },
+	{ value: frameRightHalfHeroYellow, label: "Yellow Heroism" },
+	{ value: frameRightHalfVillainBlue, label: "Blue Villainy" },
+	{ value: frameRightHalfVillainGreen, label: "Green Villainy" },
+	{ value: frameRightHalfVillainRed, label: "Red Villainy" },
+	{ value: frameRightHalfVillainYellow, label: "Yellow Villainy" },
+];
 
 export const firstLeaderAspectOptions = [
-    {value: firstLeaderAspectBlue, label: "Blue", needsAdjustment: false},
-    {value: firstLeaderAspectYellow, label: "Yellow", needsAdjustment: false},
-    {value: firstLeaderAspectRed, label: "Red", needsAdjustment: false},
-    {value: firstLeaderAspectGreen, label: "Green", needsAdjustment: false},
-    {value: secondLeaderAspectVillain, label: "Villainy", needsAdjustment: true},
-    {value: secondLeaderAspectHero, label: "Heroism", needsAdjustment: true},
-]
+	{ value: firstLeaderAspectBlue, label: "Blue", needsAdjustment: false },
+	{ value: firstLeaderAspectYellow, label: "Yellow", needsAdjustment: false },
+	{ value: firstLeaderAspectRed, label: "Red", needsAdjustment: false },
+	{ value: firstLeaderAspectGreen, label: "Green", needsAdjustment: false },
+	{
+		value: secondLeaderAspectVillain,
+		label: "Villainy",
+		needsAdjustment: true,
+	},
+	{ value: secondLeaderAspectHero, label: "Heroism", needsAdjustment: true },
+];
 
 export const secondLeaderAspectOptions = [
-    {value: '', label: "None", needsAdjustment: false},
-    {value: firstLeaderAspectBlue, label: "Blue", needsAdjustment: true},
-    {value: firstLeaderAspectYellow, label: "Yellow", needsAdjustment: true},
-    {value: firstLeaderAspectRed, label: "Red", needsAdjustment: true},
-    {value: firstLeaderAspectGreen, label: "Green", needsAdjustment: true},
-    {value: secondLeaderAspectVillain, label: "Villainy", needsAdjustment: false},
-    {value: secondLeaderAspectHero, label: "Heroism", needsAdjustment: false},
-]
+	{ value: "", label: "None", needsAdjustment: false },
+	{ value: firstLeaderAspectBlue, label: "Blue", needsAdjustment: true },
+	{ value: firstLeaderAspectYellow, label: "Yellow", needsAdjustment: true },
+	{ value: firstLeaderAspectRed, label: "Red", needsAdjustment: true },
+	{ value: firstLeaderAspectGreen, label: "Green", needsAdjustment: true },
+	{
+		value: secondLeaderAspectVillain,
+		label: "Villainy",
+		needsAdjustment: false,
+	},
+	{ value: secondLeaderAspectHero, label: "Heroism", needsAdjustment: false },
+];
 
-let costs = [{value: costBlank, label: 'Blank'}];
-for (let i = 0; i < 8; i ++) {
-    // @ts-ignore
-    costs.push({value: imgMap[`cost${i}`], label: i})
+let costs = [{ value: costBlank, label: "Blank/Custom" }];
+for (let i = 0; i < 8; i++) {
+	// @ts-ignore
+	costs.push({ value: imgMap[`cost${i}`], label: i });
 }
 export const costOptions = costs;
 
-let power = [{value: powerBlank, label: 'Blank'}];
-for (let i = 0; i < 11; i ++) {
-    // @ts-ignore
-    power.push({value: imgMap[`power${i}`], label: i})
+let power = [{ value: powerBlank, label: "Blank/Custom" }];
+for (let i = 0; i < 11; i++) {
+	// @ts-ignore
+	power.push({ value: imgMap[`power${i}`], label: i });
 }
-export const powerOptions: Array<{ value: string; label: string; }> = power;
+export const powerOptions: Array<{ value: string; label: string }> = power;
 
-let health = [{value: healthBlank, label: 'Blank'}];
-for (let i = 1; i < 11; i ++) {
-    // @ts-ignore
-    health.push({value: imgMap[`health${i}`], label: i})
+let health = [{ value: healthBlank, label: "Blank/Custom" }];
+for (let i = 1; i < 11; i++) {
+	// @ts-ignore
+	health.push({ value: imgMap[`health${i}`], label: i });
 }
 export const healthOptions = health;
