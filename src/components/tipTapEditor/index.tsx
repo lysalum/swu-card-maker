@@ -91,20 +91,6 @@ const RichTextEditor = forwardRef<Editor | null, RichTextEditorProps>(
 			},
 		});
 
-		console.log(
-			"ctx.editor.isActive('bold')",
-			editor.isActive("bold"),
-			editor.isActive("bold") &&
-				!editor.isActive("textStyle", {
-					color: "#8c0a02",
-				})
-		);
-		console.log(
-			"ctx.editoradsfasfasdfasdf",
-			editor.getAttributes("textStyle").color,
-			editor.isActive("textStyle", { color: "#8c0a02" })
-		);
-
 		// Attach the editor instance to the ref
 		React.useEffect(() => {
 			if (ref && typeof ref === "object") {

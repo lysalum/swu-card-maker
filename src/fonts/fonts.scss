@@ -381,5 +381,27 @@
     font-style: italic;
   }
   
+  // Teuton Fett
   
-  
+  @font-face {
+    font-family: 'TeutonFett';
+    src: url('./Teuton_Fett/Teuton_Fett_Bold.otf') format('opentype');
+    font-weight: 700;
+  }
+
+  @font-face {
+    font-family: 'TeutonFett';
+    src: url('./Teuton_Fett/Teuton_Fett_Italic.otf') format('opentype');
+    font-style: italic;
+  }
+
+  @font-face {
+    font-family: 'TeutonFett';
+    src: url('./Teuton_Fett/Teuton_Fett_Regular.otf') format('opentype');
+  }
+
+  @font-face {
+    font-family: 'TeutonBold';
+    src: url('./Teuton_Fett/Teuton_Normal_Bold.otf') format('opentype');
+  }
+

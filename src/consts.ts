@@ -57,6 +57,10 @@ import villainAspect1 from "./assets/villain_aspect_1.png";
 import yellowAspect0 from "./assets/yellow_aspect_0.png";
 import yellowAspect1 from "./assets/yellow_aspect_1.png";
 
+import costBlank from "./assets/blank_cost.png";
+import healthBlank from "./assets/blank_health.png";
+import powerBlank from "./assets/blank_power.png";
+
 
 export const imgMap = {
 	// Aspects
@@ -82,6 +86,7 @@ export const imgMap = {
 	firstLeaderAspectYellow,
 
 	// Cost icons
+    costBlank,
 	cost0,
 	cost1,
 	cost2,
@@ -95,6 +100,7 @@ export const imgMap = {
 	// cost10,
 
 	// Health icons
+    healthBlank,
 	health1,
 	health2,
 	health3,
@@ -107,6 +113,7 @@ export const imgMap = {
 	health10,
 
 	// Power icons
+    powerBlank,
 	power0,
 	power1,
 	power2,
@@ -159,21 +166,21 @@ export const secondLeaderAspectOptions = [
     {value: secondLeaderAspectHero, label: "Heroism", needsAdjustment: false},
 ]
 
-let costs = [];
+let costs = [{value: costBlank, label: 'Blank'}];
 for (let i = 0; i < 8; i ++) {
     // @ts-ignore
     costs.push({value: imgMap[`cost${i}`], label: i})
 }
 export const costOptions = costs;
 
-let power = [];
+let power = [{value: powerBlank, label: 'Blank'}];
 for (let i = 0; i < 11; i ++) {
     // @ts-ignore
     power.push({value: imgMap[`power${i}`], label: i})
 }
-export const powerOptions = power;
+export const powerOptions: Array<{ value: string; label: string; }> = power;
 
-let health = [];
+let health = [{value: healthBlank, label: 'Blank'}];
 for (let i = 1; i < 11; i ++) {
     // @ts-ignore
     health.push({value: imgMap[`health${i}`], label: i})

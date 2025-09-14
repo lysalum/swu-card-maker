@@ -198,6 +198,66 @@
 	right: 1px;
 }
 
+$text-shadow: rgba(0, 0, 0, .5);
+$shadow-thickness: 2;
+
+.card-custom-value {
+    position: absolute;
+    font-family: TeutonFett;
+    font-weight: 900;
+    font-size: 6.5cqh;
+    margin: 0;
+    color: white;
+    filter: drop-shadow(0px .35cqh rgba(0, 0, 0, .5));
+    width: 10%;
+    text-align: center;
+
+    // text-shadow: #{$shadow-thickness*2}px 0 $text-shadow, -#{$shadow-thickness*2}px 0 $text-shadow, 0 #{$shadow-thickness*2}px $text-shadow, 0 -#{$shadow-thickness*2}px $text-shadow,
+    // #{$shadow-thickness}px #{$shadow-thickness}px $text-shadow, -#{$shadow-thickness}px -#{$shadow-thickness}px $text-shadow, #{$shadow-thickness}px -#{$shadow-thickness}px $text-shadow, -#{$shadow-thickness}px #{$shadow-thickness}px $text-shadow;
+}
+
+.custom-cost-card-text {
+    top: 4.6%;
+    left: 5.5%;
+    text-shadow:
+    -#{$shadow-thickness}px -#{$shadow-thickness}px 0 #706c25,
+   #{$shadow-thickness}px -#{$shadow-thickness}px 0 #706c25,
+   -#{$shadow-thickness}px #{$shadow-thickness}px 0 #706c25,
+   #{$shadow-thickness}px #{$shadow-thickness}px 0 #706c25,
+    0px #{$shadow-thickness}px 0 #706c25,
+   #{$shadow-thickness}px  0px 0 #706c25,
+    0px -#{$shadow-thickness}px 0 #706c25,
+   -#{$shadow-thickness}px  0px 0 #706c25;
+}
+
+.custom-power-card-text {
+    top: 60.6%;    
+    left: 5.1%;
+    text-shadow:
+    -#{$shadow-thickness}px -#{$shadow-thickness}px 0 #751610,
+   #{$shadow-thickness}px -#{$shadow-thickness}px 0 #751610,
+   -#{$shadow-thickness}px #{$shadow-thickness}px 0 #751610,
+   #{$shadow-thickness}px #{$shadow-thickness}px 0 #751610,
+    0px #{$shadow-thickness}px 0 #751610,
+   #{$shadow-thickness}px  0px 0 #751610,
+    0px -#{$shadow-thickness}px 0 #751610,
+   -#{$shadow-thickness}px  0px 0 #8d8484;
+}
+
+.custom-health-card-text {
+    top: 60.6%;
+    left: 84.1%;
+    text-shadow:
+    -#{$shadow-thickness}px -#{$shadow-thickness}px 0 #11688f,
+   #{$shadow-thickness}px -#{$shadow-thickness}px 0 #11688f,
+   -#{$shadow-thickness}px #{$shadow-thickness}px 0 #11688f,
+   #{$shadow-thickness}px #{$shadow-thickness}px 0 #11688f,
+    0px #{$shadow-thickness}px 0 #11688f,
+   #{$shadow-thickness}px  0px 0 #11688f,
+    0px -#{$shadow-thickness}px 0 #11688f,
+   -#{$shadow-thickness}px  0px 0 #11688f;
+}
+
 .adjust-first-leader-aspect-up {
     top: -10.9%;
 }
