@@ -26,13 +26,12 @@ import classNames from "classnames";
 
 type RichTextEditorProps = {
 	onContentChange?: (content: string) => void;
-	increaseTextSize?: () => void;
-	decreaseTextSize?: () => void;
+	changeTextSize: (type: "inc" | "dec") => void;
 };
 
 const RichTextEditor = forwardRef<Editor | null, RichTextEditorProps>(
 	(props, ref) => {
-		const { onContentChange, increaseTextSize, decreaseTextSize } = props;
+		const { onContentChange, changeTextSize } = props;
 		const editor = useEditor({
 			extensions: [
 				Bold,
@@ -82,16 +81,12 @@ const RichTextEditor = forwardRef<Editor | null, RichTextEditorProps>(
 			editor,
 			selector: (ctx) => {
 				return {
-					isBold:
-						ctx.editor.isActive("bold") &&
-						ctx.editor.getAttributes("textStyle").color !== "#8c0a02",
+					isBold: ctx.editor.isActive("bold"),
 					isItalic: ctx.editor.isActive("italic"),
 					isStrike: ctx.editor.isActive("strike"),
 					isBullet: ctx.editor.isActive("bulletList"),
 					isOrdered: ctx.editor.isActive("orderedList"),
-					isRed:
-						ctx.editor.getAttributes("textStyle").color === "#8c0a02" &&
-						ctx.editor.isActive("bold"),
+					isRed: ctx.editor.getAttributes("textStyle").color === "#8c0a02",
 				};
 			},
 		});
@@ -156,10 +151,10 @@ const RichTextEditor = forwardRef<Editor | null, RichTextEditorProps>(
 						<div className="menu-section">
 							<button
 								className={classNames("menu-button", {
-									"is-active": editorState.isBold,
+									"is-active": editorState.isBold && !editorState.isRed,
 								})}
 								onClick={toggleBold}
-                                disabled={editorState.isRed}
+								disabled={editorState.isRed}
 							>
 								Bold
 							</button>
@@ -219,15 +214,17 @@ const RichTextEditor = forwardRef<Editor | null, RichTextEditorProps>(
 					<div className="menu-section">
 						<button
 							className={classNames("menu-button red-button", {
-								"is-active": editorState.isRed,
+								"is-active": editorState.isRed && editorState.isBold,
 							})}
 							onClick={() => {
-								if (editor.getAttributes("textStyle").color === "#8c0a02") {
+								if (editorState.isRed) {
 									editor.chain().focus().unsetColor().run();
 								} else {
 									editor.chain().focus().setColor("#8c0a02").run();
 								}
-								editor.chain().focus().toggleBold().run();
+								if (!editorState.isBold || (editorState.isBold && editorState.isRed)) {
+									editor.chain().focus().toggleBold().run();
+								}
 							}}
 							data-testid="setRed"
 						>
@@ -245,13 +242,13 @@ const RichTextEditor = forwardRef<Editor | null, RichTextEditorProps>(
 						</button>
 						<button
 							className={classNames("menu-button text-size-increase")}
-							onClick={increaseTextSize}
+							onClick={() => changeTextSize("inc")}
 						>
 							Increase text size
 						</button>
 						<button
 							className={classNames("menu-button text-size-decrease")}
-							onClick={decreaseTextSize}
+							onClick={() => changeTextSize("dec")}
 						>
 							Decrease text size
 						</button>

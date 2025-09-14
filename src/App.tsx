@@ -10,6 +10,8 @@ import {
 	healthOptions,
 	imgMap,
 	powerOptions,
+    firstLeaderAspectOptions,
+    secondLeaderAspectOptions,
 } from "./consts";
 import Select, { SingleValue } from "react-select";
 import RichTextEditor from "./components/tipTapEditor";
@@ -20,12 +22,12 @@ function App() {
 	const [frame, setFrame] = useState<string | undefined>(
 		imgMap["frameRedHero"]
 	);
-	const [cost, setCost] = useState<string | undefined>(imgMap["cost4"]);
-	const [leaderColorAspect, setLeaderColorAspect] = useState<
-		string | undefined
-	>(imgMap["leaderAspectRed"]);
-	const [leaderAspect, setLeaderAspect] = useState<string | undefined>(
-		imgMap["leaderAspectHero"]
+	const [cost, setCost] = useState<any>(imgMap["cost4"]);
+	const [firstLeaderAspect, setFirstLeaderAspect] = useState<
+		any
+	>(firstLeaderAspectOptions[2]);
+	const [secondLeaderAspect, setSecondLeaderAspect] = useState<any>(
+		secondLeaderAspectOptions[5]
 	);
 	const [health, setHealth] = useState<string | undefined>(imgMap["health5"]);
 	const [power, setPower] = useState<string | undefined>(imgMap["power2"]);
@@ -51,20 +53,18 @@ function App() {
 		setRichTextContent(htmlContent);
 	};
 
-    const decreaseTextSize = () => {
+    const changeTextSize = (type: 'inc' | 'dec') => {
         const textNode = document.querySelector(".card-text.card-content-container") as HTMLElement;
-        let textSize = parseFloat(window.getComputedStyle(textNode).fontSize);
+        const textSize = parseFloat(window.getComputedStyle(textNode).fontSize);
+        const cardHeight = document.getElementById('card-img')?.clientHeight || 0;
 
-        textSize -= .5;
-        textNode.style.fontSize = textSize + 'px';
-    }
-
-    const increaseTextSize = () => {
-        const textNode = document.querySelector(".card-text.card-content-container") as HTMLElement;
-        let textSize = parseFloat(window.getComputedStyle(textNode).fontSize);
-
-        textSize += .5;
-        textNode.style.fontSize = textSize + 'px';
+        let textCqh = textSize/cardHeight * 100;
+        if (type === 'inc') {
+            textCqh += .1;
+        } else {
+            textCqh -= .1;
+        }
+        textNode.style.fontSize = textCqh + 'cqh';
     }
 
 	const exportImage = () => {
@@ -123,12 +123,12 @@ function App() {
 								<img className="img-component card-frame" src={frame}></img>
 								<img className="img-component card-cost" src={cost}></img>
 								<img
-									className="img-component card-leader-color"
-									src={leaderColorAspect}
+									className={`img-component card-leader-color ${firstLeaderAspect.needsAdjustment && 'adjust-first-leader-aspect-up'}`}
+									src={firstLeaderAspect.value}
 								></img>
 								<img
-									className="img-component card-leader-aspect"
-									src={leaderAspect}
+									className={`img-component card-leader-aspect ${secondLeaderAspect.needsAdjustment && 'adjust-second-leader-aspect-down'}`}
+									src={secondLeaderAspect.value}
 								></img>
 								<img className="img-component card-health" src={health}></img>
 								<img className="img-component card-power" src={power}></img>
@@ -158,15 +158,39 @@ function App() {
 							</div>
 
 							<div className="select-item">
-								<div className="select-label">Template</div>
+								<div className="select-label">Background</div>
 								<Select
 									className="card-select frame-select"
 									options={frameOptions}
 									defaultValue={frameOptions[0]}
 									onChange={(option) => {
 										setFrame(option?.value);
-										setLeaderAspect(option?.aspect);
-										setLeaderColorAspect(option?.color);
+									}}
+								/>
+							</div>
+
+                            
+							<div className="select-item">
+								<div className="select-label">Leader Aspect First Color</div>
+								<Select
+									className="card-select first-leader-aspect-select"
+									options={firstLeaderAspectOptions}
+									defaultValue={firstLeaderAspectOptions[2]}
+									onChange={(option) => {
+										setFirstLeaderAspect(option);
+									}}
+								/>
+							</div>
+
+                            
+							<div className="select-item">
+								<div className="select-label">Leader Aspect Second Color</div>
+								<Select
+									className="card-select second-leader-aspect-select"
+									options={secondLeaderAspectOptions}
+									defaultValue={secondLeaderAspectOptions[5]}
+									onChange={(option) => {
+										setSecondLeaderAspect(option);
 									}}
 								/>
 							</div>
@@ -227,8 +251,7 @@ function App() {
 								<RichTextEditor
 									ref={editorRef}
 									onContentChange={handleContentChange}
-                                    decreaseTextSize={decreaseTextSize}
-                                    increaseTextSize={increaseTextSize}
+                                    changeTextSize={changeTextSize}
 								/>
 							</div>
 						</div>

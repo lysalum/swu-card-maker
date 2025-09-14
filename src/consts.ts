@@ -21,7 +21,6 @@ import frameYellowHero from "./assets/frame_yellow_hero.png";
 import frameYellowVillain from "./assets/frame_yellow_villain.png";
 import greenAspect0 from "./assets/green_aspect_0.png";
 import greenAspect1 from "./assets/green_aspect_1.png";
-import leaderAspectGreen from "./assets/green_leader_aspect.png";
 import health1 from "./assets/health_1.png";
 import health2 from "./assets/health_2.png";
 import health3 from "./assets/health_3.png";
@@ -34,11 +33,12 @@ import health9 from "./assets/health_9.png";
 import health10 from "./assets/health_10.png";
 import heroAspect0 from "./assets/hero_aspect_0.png";
 import heroAspect1 from "./assets/hero_aspect_1.png";
-import leaderAspectHero from "./assets/hero_leader_aspect.png";
-import leaderAspectBlue from "./assets/leader_aspect_blue.png";
-import leaderAspectRed from "./assets/leader_aspect_red.png";
-import leaderAspectVillain from "./assets/leader_aspect_villain.png";
-import leaderAspectYellow from "./assets/leader_aspect_yellow.png";
+import firstLeaderAspectBlue from "./assets/leader_aspect_blue_0.png";
+import firstLeaderAspectYellow from "./assets/leader_aspect_yellow_0.png";
+import firstLeaderAspectRed from "./assets/leader_aspect_red_0.png";
+import firstLeaderAspectGreen from "./assets/leader_aspect_green_0.png";
+import secondLeaderAspectVillain from "./assets/leader_aspect_villain_1.png";
+import secondLeaderAspectHero from "./assets/leader_aspect_hero_1.png";
 import power0 from "./assets/power_0.png";
 import power1 from "./assets/power_1.png";
 import power2 from "./assets/power_2.png";
@@ -74,12 +74,12 @@ export const imgMap = {
 	heroAspect1,
 	villainAspect0,
 	villainAspect1,
-	leaderAspectVillain,
-	leaderAspectHero,
-	leaderAspectBlue,
-	leaderAspectGreen,
-	leaderAspectRed,
-	leaderAspectYellow,
+	secondLeaderAspectVillain,
+	secondLeaderAspectHero,
+	firstLeaderAspectBlue,
+	firstLeaderAspectGreen,
+	firstLeaderAspectRed,
+	firstLeaderAspectYellow,
 
 	// Cost icons
 	cost0,
@@ -131,14 +131,32 @@ export const imgMap = {
 };
 
 export const frameOptions = [
-    {value: frameRedHero, label: "Red Heroism", color: leaderAspectRed, aspect: leaderAspectHero},
-    {value: frameBlueHero, label: "Blue Heroism", color: leaderAspectBlue, aspect: leaderAspectHero},
-    {value: frameGreenHero, label: "Green Heroism", color: leaderAspectGreen, aspect: leaderAspectHero},
-    {value: frameYellowHero, label: "Yellow Heroism", color: leaderAspectYellow, aspect: leaderAspectHero},
-    {value: frameRedVillain, label: "Red Villainy", color: leaderAspectRed, aspect: leaderAspectVillain},
-    {value: frameBlueVillain, label: "Blue Villainy", color: leaderAspectBlue, aspect: leaderAspectVillain},
-    {value: frameGreenVillain, label: "Green Villainy", color: leaderAspectGreen, aspect: leaderAspectVillain},
-    {value: frameYellowVillain, label: "Yellow Villainy", color: leaderAspectYellow, aspect: leaderAspectVillain},
+    {value: frameRedHero, label: "Red Heroism", color: firstLeaderAspectRed, aspect: secondLeaderAspectHero},
+    {value: frameBlueHero, label: "Blue Heroism", color: firstLeaderAspectBlue, aspect: secondLeaderAspectHero},
+    {value: frameGreenHero, label: "Green Heroism", color: firstLeaderAspectGreen, aspect: secondLeaderAspectHero},
+    {value: frameYellowHero, label: "Yellow Heroism", color: firstLeaderAspectYellow, aspect: secondLeaderAspectHero},
+    {value: frameRedVillain, label: "Red Villainy", color: firstLeaderAspectRed, aspect: secondLeaderAspectVillain},
+    {value: frameBlueVillain, label: "Blue Villainy", color: firstLeaderAspectBlue, aspect: secondLeaderAspectVillain},
+    {value: frameGreenVillain, label: "Green Villainy", color: firstLeaderAspectGreen, aspect: secondLeaderAspectVillain},
+    {value: frameYellowVillain, label: "Yellow Villainy", color: firstLeaderAspectYellow, aspect: secondLeaderAspectVillain},
+]
+
+export const firstLeaderAspectOptions = [
+    {value: firstLeaderAspectBlue, label: "Blue", needsAdjustment: false},
+    {value: firstLeaderAspectYellow, label: "Yellow", needsAdjustment: false},
+    {value: firstLeaderAspectRed, label: "Red", needsAdjustment: false},
+    {value: firstLeaderAspectGreen, label: "Green", needsAdjustment: false},
+    {value: secondLeaderAspectVillain, label: "Villainy", needsAdjustment: true},
+    {value: secondLeaderAspectHero, label: "Heroism", needsAdjustment: true},
+]
+
+export const secondLeaderAspectOptions = [
+    {value: firstLeaderAspectBlue, label: "Blue", needsAdjustment: true},
+    {value: firstLeaderAspectYellow, label: "Yellow", needsAdjustment: true},
+    {value: firstLeaderAspectRed, label: "Red", needsAdjustment: true},
+    {value: firstLeaderAspectGreen, label: "Green", needsAdjustment: true},
+    {value: secondLeaderAspectVillain, label: "Villainy", needsAdjustment: false},
+    {value: secondLeaderAspectHero, label: "Heroism", needsAdjustment: false},
 ]
 
 let costs = [];
