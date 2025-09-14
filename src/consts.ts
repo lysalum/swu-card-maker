@@ -158,6 +158,7 @@ export const firstLeaderAspectOptions = [
 ]
 
 export const secondLeaderAspectOptions = [
+    {value: '', label: "None", needsAdjustment: false},
     {value: firstLeaderAspectBlue, label: "Blue", needsAdjustment: true},
     {value: firstLeaderAspectYellow, label: "Yellow", needsAdjustment: true},
     {value: firstLeaderAspectRed, label: "Red", needsAdjustment: true},

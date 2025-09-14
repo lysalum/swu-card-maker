@@ -27,7 +27,7 @@ function App() {
 		firstLeaderAspectOptions[2]
 	);
 	const [secondLeaderAspect, setSecondLeaderAspect] = useState<any>(
-		secondLeaderAspectOptions[5]
+		secondLeaderAspectOptions[6]
 	);
 	const [health, setHealth] = useState<any>(healthOptions[6]);
 	const [power, setPower] = useState<any>(powerOptions[3]);
@@ -136,13 +136,13 @@ function App() {
 									}`}
 									src={firstLeaderAspect.value}
 								></img>
-								<img
+								{secondLeaderAspect.value && <img
 									className={`img-component card-leader-aspect ${
 										secondLeaderAspect.needsAdjustment &&
 										"adjust-second-leader-aspect-down"
 									}`}
 									src={secondLeaderAspect.value}
-								></img>
+								></img>}
 								<img
 									className="img-component card-health"
 									src={health.value}
@@ -176,22 +176,6 @@ function App() {
 					<div className="other-half">
 						<div className="selects">
 							<div className="select-item">
-								<div className="select-label">Cost</div>
-								<Select
-									className="card-select cost-select"
-									options={costOptions}
-									defaultValue={costOptions[4]}
-									value={cost}
-									onChange={(option) => {
-										setCost(option);
-										if (option.label !== "Blank") {
-											setCustomCost("");
-										}
-									}}
-								/>
-							</div>
-
-							<div className="select-item">
 								<div className="select-label">Background</div>
 								<Select
 									className="card-select frame-select"
@@ -202,6 +186,7 @@ function App() {
 									}}
 								/>
 							</div>
+							<div className="select-item"></div>
 
 							<div className="select-item">
 								<div className="select-label">Leader Aspect First Color</div>
@@ -220,11 +205,42 @@ function App() {
 								<Select
 									className="card-select second-leader-aspect-select"
 									options={secondLeaderAspectOptions}
-									defaultValue={secondLeaderAspectOptions[5]}
+									defaultValue={secondLeaderAspectOptions[6]}
 									onChange={(option) => {
 										setSecondLeaderAspect(option);
 									}}
 								/>
+							</div>
+
+								<div className="select-item">
+									<div className="select-label">Cost</div>
+									<Select
+										className="card-select cost-select"
+										options={costOptions}
+										defaultValue={costOptions[4]}
+										value={cost}
+										onChange={(option) => {
+											setCost(option);
+											if (option.label !== "Blank") {
+												setCustomCost("");
+											}
+										}}
+									/>
+
+									<label>
+										Custom Cost
+										<br />
+										<input
+											name="customCost"
+											value={customCost}
+											onChange={(e) => {
+												setCustomCost(e.target.value);
+												if (e.target.value !== "") {
+													setCost(costOptions[0]);
+												}
+											}}
+										/>
+									</label>
 							</div>
 
 							<div className="select-item">
@@ -241,25 +257,7 @@ function App() {
 										}
 									}}
 								/>
-							</div>
 
-							<div className="select-item">
-								<div className="select-label">Health</div>
-								<Select
-									className="card-select health-select"
-									options={healthOptions}
-									defaultValue={healthOptions[5]}
-									value={health}
-									onChange={(option) => {
-										setHealth(option);
-										if (option.label !== "Blank") {
-											setCustomHealth("");
-										}
-									}}
-								/>
-							</div>
-
-							<div className="select-item">
 								<label>
 									Custom Power
 									<br />
@@ -277,6 +275,19 @@ function App() {
 							</div>
 
 							<div className="select-item">
+								<div className="select-label">Health</div>
+								<Select
+									className="card-select health-select"
+									options={healthOptions}
+									defaultValue={healthOptions[5]}
+									value={health}
+									onChange={(option) => {
+										setHealth(option);
+										if (option.label !== "Blank") {
+											setCustomHealth("");
+										}
+									}}
+								/>
 								<label>
 									Custom Health
 									<br />
@@ -287,23 +298,6 @@ function App() {
 											setCustomHealth(e.target.value);
 											if (e.target.value !== "") {
 												setHealth(healthOptions[0]);
-											}
-										}}
-									/>
-								</label>
-							</div>
-
-							<div className="select-item">
-								<label>
-									Custom Cost
-									<br />
-									<input
-										name="customCost"
-										value={customCost}
-										onChange={(e) => {
-											setCustomCost(e.target.value);
-											if (e.target.value !== "") {
-												setCost(costOptions[0]);
 											}
 										}}
 									/>

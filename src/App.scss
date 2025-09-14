@@ -98,11 +98,12 @@
 	justify-content: center;
 	@media (min-width: 701px) {
 		height: 95vh;
+        align-self: start;
 	}
 }
 
 .card-container {
-	max-height: 100vh;
+	max-height: calc(min(100vh, 1000px));
 	min-height: 400px;
 	width: 100%;
 }
